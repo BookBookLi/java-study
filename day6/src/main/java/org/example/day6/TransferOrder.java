@@ -1,6 +1,7 @@
 package org.example.day6;
 
 import java.util.Date;
+import java.util.Random;
 
 public final class TransferOrder {
     //订单基本信息
@@ -10,6 +11,16 @@ public final class TransferOrder {
     private double amount;
     private boolean isSuccess;
     private Date time = new Date();
+
+    private String getRandomOrderId(){
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i< 6; i++){
+            int num = random.nextInt(10);
+            sb.append(num);
+        }
+        return sb.toString();
+    }
 
     public TransferOrder(String fromAccountId, String toAccountId, double amount) {
         this.fromAccountId = fromAccountId;

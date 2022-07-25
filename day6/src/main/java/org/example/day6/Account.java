@@ -23,9 +23,21 @@ public class Account {
         cashOrderIndex ++;
     }
 
+    public void outCashOrder(){
+        for (int i = 0;i < this.cashOrderIndex;i++){
+            System.out.println(cashOrders[i]);
+        }
+    }
+
     public void addTransferOrder(TransferOrder transferOrder){
         transferOrders[transferOrderIndex] = transferOrder;
         transferOrderIndex ++;
+    }
+
+    public void outTransferOrder(){
+        for (int i = 0;i < this.transferOrderIndex;i++){
+            System.out.println(transferOrders[i]);
+        }
     }
 
 }

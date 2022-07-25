@@ -174,6 +174,8 @@ public class AccountManager {
             return false;
         }
         currentAccount.balance -= amount;
+        TransferOrder transferOrder = new TransferOrder(currentAccount.accountId, toAccountId, amount);
+        currentAccount.addTransferOrder(transferOrder);
         toAccount.balance += amount;
         return true;
     }

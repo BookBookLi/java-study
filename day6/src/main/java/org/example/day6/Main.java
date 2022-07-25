@@ -157,7 +157,7 @@ public class Main {
             case 6:
                 AccountManager.logout();
                 System.out.println("=== 退出 ===");
-                printUserMenu();
+                printMainMenu();
                 break;
             //输入错误
             default:
@@ -170,7 +170,7 @@ public class Main {
 
 //交易记录查询菜单
     private static void printRecordsMenu() {
-        System.out.println("=== 用户菜单 ===");
+        System.out.println("=== 交易记录查询菜单 ===");
         System.out.println("请输入数字1/2/3，从以下选项中选择您所需进行的操作");
         System.out.println("1.查询存取款记录");
         System.out.println("2.查询转账记录");
@@ -181,8 +181,13 @@ public class Main {
         switch (choice) {
             //1.查询存取款记录
             case 1:
+                AccountManager.currentAccount.outCashOrder();
+                printRecordsMenu();
                 break;
+            //2.查看转账记录
             case 2:
+                AccountManager.currentAccount.outTransferOrder();
+                printRecordsMenu();
                 break;
             case 3:
                 printUserMenu();
