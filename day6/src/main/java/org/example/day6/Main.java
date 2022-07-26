@@ -66,14 +66,13 @@ public class Main {
                 System.out.println("请输入 密码：");
                 String pwd = in.next();
                 boolean isLogin = AccountManager.loginAccount(accountId, pwd);
-                if (isLogin){
+                if (isLogin == true){
                     System.out.println("登陆成功！！！");
                     //打印用户菜单
                     printUserMenu();
                 }else{
-                    System.out.println("登陆失败！！！");
-                    //重回主菜单
                     printMainMenu();
+                    // TODO 返回登录界面，重新输入
                 }
                 break;
             //3.退出
@@ -199,6 +198,8 @@ public class Main {
                 break;
         }
     }
+
+
 
 /**选择下一步操作
  public static void printChoice1;){

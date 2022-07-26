@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class AccountManager {
     //存储账号信息
-    public static final Account[] accounts = new Account[100];
+    public static Account[] accounts = new Account[10];
     public static int currentAccountIndex = 0;
     public static Account currentAccount = null;
 
@@ -17,10 +17,20 @@ public class AccountManager {
 
 /** 开户 **/
     public static Account openAccount(String username, String password, String checkPassword){
+        // 判定
+        if (username == null || username.length() == 0){
+            System.out.println("用户名不能为空");
+            return null;
+        }
+        if (password == null || password.length() == 0) {
+            System.out.println("密码不能为空");
+            return null;
+        }
         if (!password.equals(checkPassword)){
             System.out.println("两次输入的密码不一致");
             return null;
         }
+        // 开户
         Account account = new Account();
         account.username = username;
         account.password = password;
@@ -36,14 +46,20 @@ public class AccountManager {
         currentAccountIndex ++;
         return account;
     }
-    //随机获取账户id
-    /**
-     * 随机生成6位数字的账号
-     * @return
-     */
+
+    // 扩展存储个数
+    public static void reSize(){
+        Account[] newAccounts = new Account[accounts.length + 100];
+        for (int i = 0; i < accounts.length; i++){
+            newAccounts[i] = accounts[i];
+        }
+        accounts = newAccounts;
+
+    }
+
+    // 随机获取账户id的方法
     private static String getRandomAccountId(){
         Random random = new Random();
-        String accountId = "";
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i< 6; i++){
             int num = random.nextInt(10);
@@ -68,7 +84,20 @@ public class AccountManager {
 
 //登录账户
     public static boolean loginAccount(String accountId, String password){
-        //TODO 登陆逻辑
+        // 判定
+        // 账号不能为空
+        if (accountId == null || accountId.length() != 6){
+            System.out.println("账号输入错误");
+            System.out.println("请重试");
+            return false;
+        }
+        // 输入的密码不能为空
+        if (password == null || password.length() == 0){
+            System.out.println("密码不能为空");
+            System.out.println("请重试");
+            return false;
+        }
+
         for (int i = 0; i < currentAccountIndex; i++) {
             Account account = accounts[i];
             if (account == null) {
@@ -79,8 +108,11 @@ public class AccountManager {
                 return true;
             }
         }
+        System.out.println("密码错误");
+        System.out.println("请重试");
         return false;
     }
+
 //退出账户
     public static void logout(){
         currentAccount = null;
