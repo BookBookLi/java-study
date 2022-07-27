@@ -8,6 +8,7 @@ public final class TransferOrder {
     private String orderId;
     private String fromAccountId;
     private String toAccountId;
+    private TransferEnum type;
     private double amount;
     private boolean isSuccess;
     private Date time = new Date();
@@ -22,10 +23,11 @@ public final class TransferOrder {
         return sb.toString();
     }
 
-    public TransferOrder(String fromAccountId, String toAccountId, double amount) {
+    public TransferOrder(String fromAccountId, String toAccountId, TransferEnum type, double amount) {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.amount = amount;
+        this.type = type;
     }
 
     public String getOrderId() {

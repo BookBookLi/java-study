@@ -1,12 +1,18 @@
 package org.example.day6;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class AccountManager {
-    //存储账号信息
-    public static Account[] accounts = new Account[10];
-    public static int currentAccountIndex = 0;
+     //存储账号信息
+     //public static Account[] accounts = new Account[10];
+     //public static int currentAccountIndex = 0;
+
+     // 改用list
+     public static List<Account> accounts = new ArrayList<>();
+
     public static Account currentAccount = null;
 
     /**private static int accountCount = 0;
@@ -42,20 +48,22 @@ public class AccountManager {
         //随机生成accountId
         account.accountId = getRandomAccountId();
         //存储账号信息
-        accounts[currentAccountIndex] = account;
-        currentAccountIndex ++;
+        accounts.add(account);
+//        accounts[currentAccountIndex] = account;
+//        currentAccountIndex ++;
         return account;
     }
 
     // 扩展存储个数
-    public static void reSize(){
-        Account[] newAccounts = new Account[accounts.length + 100];
-        for (int i = 0; i < accounts.length; i++){
-            newAccounts[i] = accounts[i];
-        }
-        accounts = newAccounts;
+//    public static void reSize(){
+//        Account[] newAccounts = new Account[accounts.length + 100];
+//        for (int i = 0; i < accounts.length; i++){
+//            newAccounts[i] = accounts[i];
+//        }
+//        accounts = newAccounts;
+//
+//    }
 
-    }
 
     // 随机获取账户id的方法
     private static String getRandomAccountId(){
@@ -97,9 +105,20 @@ public class AccountManager {
             System.out.println("请重试");
             return false;
         }
+//
+//        for (int i = 0; i < currentAccountIndex; i++) {
+//            Account account = accounts[i];
+//            if (account == null) {
+//                continue;
+//            }
+//            if (account.accountId.equals(accountId) && account.password.equals(password)) {
+//                currentAccount = account; //记录当前登录用户信息
+//                return true;
+//            }
+//        }
 
-        for (int i = 0; i < currentAccountIndex; i++) {
-            Account account = accounts[i];
+        for (int i = 0; i < accounts.size(); i++) {
+            Account account = accounts.get(i);
             if (account == null) {
                 continue;
             }
@@ -161,6 +180,7 @@ public class AccountManager {
             return -1;
         }
         currentAccount.balance += amount;
+        // TODO 转账记录是两个，to & from
         CashOrder cashOrder = new CashOrder(currentAccount.accountId, CashEnum.DEPOSIT, amount, true);
         currentAccount.addCashOrder(cashOrder);
         double balance = currentAccount.balance;
@@ -206,15 +226,15 @@ public class AccountManager {
             return false;
         }
         currentAccount.balance -= amount;
-        TransferOrder transferOrder = new TransferOrder(currentAccount.accountId, toAccountId, amount);
+        TransferOrder transferOrder = new TransferOrder(currentAccount.accountId, toAccountId, TransferEnum.FROM, amount);
         currentAccount.addTransferOrder(transferOrder);
         toAccount.balance += amount;
         return true;
     }
 
     private static Account getAccountByIdAndUsername(String accountId, String username){
-        for (int i = 0; i < currentAccountIndex; i++){
-            Account account = accounts[i];
+        for (int i = 0; i < accounts.size(); i++){
+            Account account = accounts.get(i);
             if (account == null){
                 continue;
             }
