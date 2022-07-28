@@ -1,9 +1,6 @@
 package org.example.day6;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class AccountManager {
      //存储账号信息
@@ -158,7 +155,10 @@ public class AccountManager {
         }
         currentAccount.balance -= amount;
         CashOrder cashOrder = new CashOrder(currentAccount.accountId, CashEnum.WITHDRAW, amount, true);
-        currentAccount.addCashOrder(cashOrder);
+        // TODO 用map对应account和cashOder
+        //currentAccount.addCashOrder(cashOrder);
+        Map<Account, CashOrder> map = new HashMap<>();
+        map.put(currentAccount, cashOrder);
         double balance = currentAccount.balance;
         System.out.println("取现成功 " + amount + "元");
         System.out.println("当前账户余额为: " + balance + "元");
